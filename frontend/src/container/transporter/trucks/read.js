@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import { BsTrash } from 'react-icons/bs'
 import { BiEdit } from 'react-icons/bi'
 
 
-class ReadTransporter extends Component {
+class ReadTransporterTrucks extends Component {
     state = {
         trucks: {}
     }
@@ -30,7 +29,7 @@ class ReadTransporter extends Component {
                         <Link className="bg-yellow-100 px-10 py-2" to='/Transporter/trucks/create'>CREATE TRUCKS</Link>
                     </div>
                     <table className='table-auto'>
-                        <thead>
+                        <thead className='border'>
                             <tr>
                                 <th className='px-4 py-5'>License Number</th>
                                 <th className='px-4 py-5'>Truck Type</th>
@@ -41,20 +40,22 @@ class ReadTransporter extends Component {
 
                             </tr>
                         </thead>
-                        {(items || []).map((item, index) => (
-                            <tr>
-                                <td className='px-4'>
-                                    <Link className='px-2' to={"/Transporter/trucks/" + item.id}>{item.licenseNumber}</Link>
-                                </td>
-                                <td className='px-4'>{item.truckType}</td>
-                                <td className='px-4'>{item.plateType}</td>
-                                <td className='px-4'>{item.productionYear}</td>
-                                <td className='px-4'>{item.status}</td>
-                                <td className="flex">
-                                    <Link className='px-2' to={"/update/" + item.id}><BiEdit /></Link>
-                                </td>
-                            </tr>
-                        ))}
+                        <tbody className='border'>
+                            {(items || []).map((item, index) => (
+                                <tr>
+                                    <td className='px-4'>
+                                        <Link className='px-2' to={"/Transporter/trucks/" + item.id}>{item.licenseNumber}</Link>
+                                    </td>
+                                    <td className='px-4'>{item.truckType}</td>
+                                    <td className='px-4'>{item.plateType}</td>
+                                    <td className='px-4'>{item.productionYear}</td>
+                                    <td className='px-4'>{item.status}</td>
+                                    <td className="flex">
+                                        <Link className='px-2' to={"/Transporter/trucks/update" + item.id}><BiEdit /></Link>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
                 </div>            
             </>
@@ -62,4 +63,4 @@ class ReadTransporter extends Component {
     }
 }
 
-export default ReadTransporter
+export default ReadTransporterTrucks

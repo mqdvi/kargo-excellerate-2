@@ -33,7 +33,7 @@ export class Navbar extends Component {
                                 <a href="/" className="hover:text-oren3" style={{color: this.myColor("/")}}>LMS</a>
                                 <a href="/get-list-berita" className="hover:text-oren3" style={{color: this.myColor("/get-list-berita")}}>Shipments</a>
                                 <a href="/Transporter/trucks" className="hover:text-oren3" style={{color: this.myColor("/Transporter/trucks")}}>Trucks</a>
-                                <a href="/read-artikel" className="hover:text-oren3" style={{color: this.myColor("/read-artikel")}}>Drivers</a>
+                                <a href="/Transporter/drivers" className="hover:text-oren3" style={{color: this.myColor("/Transporter/drivers")}}>Drivers</a>
                             </Popover.Group>
                             
                             <div className="hidden md:flex items-center justify-end">
@@ -65,8 +65,8 @@ export class Navbar extends Component {
                                             <a href="/Transporter/trucks" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50" >
                                                 <span className="ml-3 text-base hover:text-oren3" style={{color: this.myColor("/Transporter/trucks")}}>Trucks</span>
                                             </a>
-                                            <a href="/read-artikel" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50" >
-                                                <span className="ml-3 text-base hover:text-oren3" style={{color: this.myColor("/read-artikel")}}>Drivers</span>
+                                            <a href="/Transporter/drivers" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50" >
+                                                <span className="ml-3 text-base hover:text-oren3" style={{color: this.myColor("/Transporter/drivers")}}>Drivers</span>
                                             </a>
                                         </nav>
                                     </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export class CreateTransporter extends Component {
+export class CreateTransporterTrucks extends Component {
     constructor(props) {
         super(props)
 
@@ -74,4 +74,4 @@ export class CreateTransporter extends Component {
     }
 }
 
-export default CreateTransporter
+export default CreateTransporterTrucks

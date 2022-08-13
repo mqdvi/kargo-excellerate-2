@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 
-export class ReadDetailTransporter extends Component {
+export class ReadDetailTransporterDrivers extends Component {
     constructor(props) {
         super(props)
 
@@ -23,7 +23,7 @@ export class ReadDetailTransporter extends Component {
     // }
 
     render() {
-        const { id, licenseNumber, truckType, plateType, productionYear, status } = this.state.data
+        const { id, name, phoneNumber, createdAt, status } = this.state.data
         return (
             <div className="background">
                 <Link to={"/Transporter/trucks"} className='submit-button pl-16'>
@@ -31,10 +31,9 @@ export class ReadDetailTransporter extends Component {
                 </Link>
                 <div className="lg:p-56 lg:pt-0">
                     <p className='text-lg'>{id}</p>
-                    <p className='text-lg'>{licenseNumber}</p>
-                    <p className='text-lg'>{truckType}</p>
-                    <p className='text-lg'>{plateType}</p>
-                    <p className='text-lg'>{productionYear}</p>
+                    <p className='text-lg'>{name}</p>
+                    <p className='text-lg'>{phoneNumber}</p>
+                    <p className='text-lg'>{createdAt}</p>
                     <p className='text-lg'>{status}</p>
                 </div>
             </div>
@@ -42,4 +41,4 @@ export class ReadDetailTransporter extends Component {
     }
 }
 
-export default ReadDetailTransporter;
+export default ReadDetailTransporterDrivers;
