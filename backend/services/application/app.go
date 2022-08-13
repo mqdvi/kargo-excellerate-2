@@ -20,6 +20,7 @@ import (
 	"github.com/mqdvi/kargo-excellerate-2/backend/databases"
 	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/driver"
 	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/shipment"
+	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/origins"
 	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/truck"
 	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/truck_type"
 	"github.com/mqdvi/kargo-excellerate-2/backend/services/config"
@@ -85,26 +86,27 @@ func (app *App) initRoutes() {
 	validate = validator.New()
 
 	// Repository
-	// originRepo := origins.NewRepository(app.config.DBName)
+	originRepo := origins.NewRepository(app.config.DBName)
 	truckRepo := truck.NewRepository(app.config.DBName)
 	truckTypeRepo := truck_type.NewRepository(app.config.DBName)
 	driverRepo := driver.NewRepository(app.config.DBName)
 	shipmentRepo := shipment.NewRepository(app.config.DBName)
 
 	// Service
-	// originSvc := origins.NewService(app.DBManager.DB, originRepo)
+	originSvc := origins.NewService(app.DBManager.DB, originRepo)
 	truckSvc := truck.NewService(app.DBManager.DB, truckRepo)
 	truckTypeSvc := truck_type.NewService(app.DBManager.DB, truckTypeRepo)
 	driverSvc := driver.NewService(app.DBManager.DB, driverRepo)
 	shipmentSvc := shipment.NewService(app.DBManager.DB, shipmentRepo, truckRepo, driverRepo)
 
 	// Controller
-	// originCtrl := origins.NewController(originSvc)
+	originCtrl := origins.NewController(originSvc)
 	truckCtrl := truck.NewController(truckSvc, validate)
 	truckTypeCtrl := truck_type.NewController(truckTypeSvc)
 	driverCtrl := driver.NewController(driverSvc, validate)
 	shipmentCtrl := shipment.NewController(shipmentSvc, validate)
 
+	router.GET("/origins", originCtrl.HandlerGetOrigins)
 	router.GET("/trucks", truckCtrl.HandlerGetTrucks)
 	router.GET("/drivers", driverCtrl.HandlerGetDrivers)
 
@@ -120,6 +122,7 @@ func (app *App) initRoutes() {
 	transporters.GET("/drivers", driverCtrl.HandlerGetDrivers)
 	transporters.GET("/drivers/:id", driverCtrl.HandlerGetDriverByID)
 	transporters.POST("/drivers", driverCtrl.HandlerCreateDriver)
+	transporters.PUT("/drivers/:driverId", driverCtrl.HandlerUpdateDriver)
 
 	shipper := router.Group("/shipper")
 	shipper.GET("/shipments", shipmentCtrl.HandlerGetShipments)
