@@ -1,10 +1,14 @@
 import axios from 'axios';
 
 const base_URL = "http://localhost:8090/transporters/trucks";
+const truckType = "http://localhost:8090/transporters/truck-types";
 
 class TrucksService {
     getTrucks(){
         return axios.get(base_URL);
+    }
+    getTrucksType(){
+        return axios.get(truckType);
     }
 
     createTrucks(state){
@@ -17,10 +21,6 @@ class TrucksService {
 
     updateTrucks(state) {
         return axios.put(base_URL, state);
-    }
-
-    deleteTrucks(trucksId) {
-        return axios.delete(base_URL + trucksId)
     }
 }
 
