@@ -7,6 +7,9 @@ type driverController struct {
 	validator *validator.Validate
 }
 
-func NewController(driverSvc DriverServiceInterface) *driverController {
-	return &driverController{driverSvc: driverSvc}
+func NewController(driverSvc DriverServiceInterface, validator *validator.Validate) *driverController {
+	return &driverController{
+		driverSvc: driverSvc,
+		validator: validator,
+	}
 }
