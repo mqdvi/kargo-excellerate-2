@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import DriverService from "../../../services/driver-service";
-
 export class CreateTransporterDrivers extends Component {
     constructor(props) {
         super(props)
@@ -47,8 +46,22 @@ export class CreateTransporterDrivers extends Component {
                         <label class="block text-sm font-header mb-2 uppercase" for="phoneNumber">Phone Number</label>
                         <input class="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="phoneNumber" type="number" placeholder="phoneNumber" onChange = {this.handlerChange} required/>
                     </div>
-                    
-
+                    <div className="mb-6">
+                        <label className="block text-sm font-header mb-2 uppercase" htmlFor="idCard">ID Card</label>
+                        <input
+                            className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                            name="idCard" type="file"
+                            accept="image/*" placeholder="ID Card" onChange={this.handlerChange}
+                            required/>
+                    </div>
+                    <div className="mb-6">
+                        <label className="block text-sm font-header mb-2 uppercase" htmlFor="idCard">ID Card</label>
+                        <input
+                            className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                            name="idCard" type="file"
+                            accept="image/*" placeholder="Driver License" onChange={this.handlerChange}
+                            required/>
+                    </div>
                     <div class="mb-6">
                         <input 
                             type = 'submit'
