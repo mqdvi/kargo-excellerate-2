@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/driver"
 	"log"
 	"net/http"
 	"os"
@@ -85,14 +86,17 @@ func (app *App) initRoutes() {
 	// Repository
 	truckRepo := truck.NewRepository(app.config.DBName)
 	truckTypeRepo := truck_type.NewRepository(app.config.DBName)
+	driverRepo := driver.NewRepository(app.config.DBName)
 
 	// Service
 	truckSvc := truck.NewService(app.DBManager.DB, truckRepo)
 	truckTypeSvc := truck_type.NewService(app.DBManager.DB, truckTypeRepo)
+	driverSvc := driver.NewService(app.DBManager.DB, driverRepo)
 
 	// Controller
 	truckCtrl := truck.NewController(truckSvc, validate)
 	truckTypeCtrl := truck_type.NewController(truckTypeSvc)
+	driverCtrl := driver.NewController(driverSvc)
 
 	transporters := router.Group("/transporters")
 	transporters.GET("/trucks", truckCtrl.HandlerGetTrucks)
@@ -102,6 +106,9 @@ func (app *App) initRoutes() {
 	transporters.PATCH("/trucks/:id/deactivate", truckCtrl.HandlerDeactivateTruck)
 
 	transporters.GET("/truck-types", truckTypeCtrl.HandlerGetTruckTypes)
+
+	transporters.GET("/drivers", driverCtrl.HandlerGetDrivers)
+	transporters.POST("/drivers", driverCtrl.HandlerCreateDriver)
 }
 
 func (app *App) Start() {
