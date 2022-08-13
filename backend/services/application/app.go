@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/driver"
 	"log"
 	"net/http"
 	"os"
@@ -13,13 +14,14 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 
 	"github.com/mqdvi/kargo-excellerate-2/backend/databases"
 	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/origins"
-
-	// "github.com/mqdvi/kargo-excellerate-2/backend/services/api/truck"
+	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/truck"
+	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/truck_type"
 	"github.com/mqdvi/kargo-excellerate-2/backend/services/config"
 )
 
@@ -28,6 +30,8 @@ type App struct {
 	E         *gin.Engine
 	DBManager *databases.Manager
 }
+
+var validate *validator.Validate
 
 func NewApp(config *config.Config) *App {
 	app := &App{
@@ -77,22 +81,40 @@ func (app *App) initRoutes() {
 	config.AllowOrigins = []string{"*"}
 	router.Use(cors.New(config))
 
+	// Init validator
+	validate = validator.New()
+
 	// Repository
 	originRepo := origins.NewRepository(app.config.DBName)
-	// truckRepo := truck.NewRepository(app.config.DBName)
+	truckRepo := truck.NewRepository(app.config.DBName)
+	truckTypeRepo := truck_type.NewRepository(app.config.DBName)
+	driverRepo := driver.NewRepository(app.config.DBName)
 
 	// Service
-	originSvc := origins.NewService(app.DBManager.DB, originRepo)
-	// truckSvc := truck.NewService(app.DBManager.DB, truckRepo)
+  originSvc := origins.NewService(app.DBManager.DB, originRepo)
+	truckSvc := truck.NewService(app.DBManager.DB, truckRepo)
+	truckTypeSvc := truck_type.NewService(app.DBManager.DB, truckTypeRepo)
+	driverSvc := driver.NewService(app.DBManager.DB, driverRepo)
 
 	// Controller
-	originCtrl := origins.NewController(originSvc)
-	// truckCtrl := truck.NewController(truckSvc)
+  originCtrl := origins.NewController(originSvc)
+	truckCtrl := truck.NewController(truckSvc, validate)
+	truckTypeCtrl := truck_type.NewController(truckTypeSvc)
+	driverCtrl := driver.NewController(driverSvc)
+  
+  router.GET("/origins", originCtrl.HandlerGetOrigins)
 
-	router.GET("/origins", originCtrl.HandlerGetOrigins)
-	// router.GET("/origins/:id", originCtrl.HandlerGetTruckByID)
-	// router.GET("/trucks", truckCtrl.HandlerGetTrucks)
-	// router.GET("/trucks/:id", truckCtrl.HandlerGetTruckByID)
+	transporters := router.Group("/transporters")
+	transporters.GET("/trucks", truckCtrl.HandlerGetTrucks)
+	transporters.GET("/trucks/:id", truckCtrl.HandlerGetTruckByID)
+	transporters.POST("/trucks", truckCtrl.HandlerCreateTruck)
+	transporters.PUT("/trucks/:id", truckCtrl.HandlerUpdateTruck)
+	transporters.PATCH("/trucks/:id/deactivate", truckCtrl.HandlerDeactivateTruck)
+
+	transporters.GET("/truck-types", truckTypeCtrl.HandlerGetTruckTypes)
+
+	transporters.GET("/drivers", driverCtrl.HandlerGetDrivers)
+	transporters.POST("/drivers", driverCtrl.HandlerCreateDriver)
 }
 
 func (app *App) Start() {
