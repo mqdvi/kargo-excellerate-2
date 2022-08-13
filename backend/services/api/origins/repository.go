@@ -34,5 +34,5 @@ func (repo *originRepository) selectFields() []string {
 }
 
 func (repo *originRepository) GetTableName() string {
-	return "origins"
+	return "districts"
 }

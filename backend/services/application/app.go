@@ -48,7 +48,7 @@ func NewApp(config *config.Config) *App {
 
 func (app *App) initDatabase() {
 	connectionString := fmt.Sprintf(
-		"%s:%s@tcp(%s:%v)/%s?parseTime=true&usessl=false&allowPublicKeyRetrieval=true",
+		"%s:%s@tcp(%s:%v)/%s?parseTime=true",
 		app.config.DBUser,
 		app.config.DBPassword,
 		app.config.DBHost,
@@ -91,18 +91,18 @@ func (app *App) initRoutes() {
 	driverRepo := driver.NewRepository(app.config.DBName)
 
 	// Service
-  originSvc := origins.NewService(app.DBManager.DB, originRepo)
+	originSvc := origins.NewService(app.DBManager.DB, originRepo)
 	truckSvc := truck.NewService(app.DBManager.DB, truckRepo)
 	truckTypeSvc := truck_type.NewService(app.DBManager.DB, truckTypeRepo)
 	driverSvc := driver.NewService(app.DBManager.DB, driverRepo)
 
 	// Controller
-  originCtrl := origins.NewController(originSvc)
+	originCtrl := origins.NewController(originSvc)
 	truckCtrl := truck.NewController(truckSvc, validate)
 	truckTypeCtrl := truck_type.NewController(truckTypeSvc)
 	driverCtrl := driver.NewController(driverSvc)
-  
-  router.GET("/origins", originCtrl.HandlerGetOrigins)
+
+	router.GET("/origins", originCtrl.HandlerGetOrigins)
 
 	transporters := router.Group("/transporters")
 	transporters.GET("/trucks", truckCtrl.HandlerGetTrucks)
@@ -112,9 +112,6 @@ func (app *App) initRoutes() {
 	transporters.PATCH("/trucks/:id/deactivate", truckCtrl.HandlerDeactivateTruck)
 
 	transporters.GET("/truck-types", truckTypeCtrl.HandlerGetTruckTypes)
-
-	transporters.GET("/drivers", driverCtrl.HandlerGetDrivers)
-	transporters.POST("/drivers", driverCtrl.HandlerCreateDriver)
 
 	transporters.GET("/drivers", driverCtrl.HandlerGetDrivers)
 	transporters.GET("/drivers/:id", driverCtrl.HandlerGetDriverByID)
