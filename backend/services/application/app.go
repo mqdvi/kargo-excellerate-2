@@ -19,6 +19,7 @@ import (
 	"github.com/jmoiron/sqlx"
 
 	"github.com/mqdvi/kargo-excellerate-2/backend/databases"
+	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/origins"
 	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/truck"
 	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/truck_type"
 	"github.com/mqdvi/kargo-excellerate-2/backend/services/config"
@@ -47,7 +48,7 @@ func NewApp(config *config.Config) *App {
 
 func (app *App) initDatabase() {
 	connectionString := fmt.Sprintf(
-		"%s:%s@tcp(%s:%v)/%s?parseTime=true",
+		"%s:%s@tcp(%s:%v)/%s?parseTime=true&usessl=false&allowPublicKeyRetrieval=true",
 		app.config.DBUser,
 		app.config.DBPassword,
 		app.config.DBHost,
@@ -84,19 +85,24 @@ func (app *App) initRoutes() {
 	validate = validator.New()
 
 	// Repository
+	originRepo := origins.NewRepository(app.config.DBName)
 	truckRepo := truck.NewRepository(app.config.DBName)
 	truckTypeRepo := truck_type.NewRepository(app.config.DBName)
 	driverRepo := driver.NewRepository(app.config.DBName)
 
 	// Service
+  originSvc := origins.NewService(app.DBManager.DB, originRepo)
 	truckSvc := truck.NewService(app.DBManager.DB, truckRepo)
 	truckTypeSvc := truck_type.NewService(app.DBManager.DB, truckTypeRepo)
 	driverSvc := driver.NewService(app.DBManager.DB, driverRepo)
 
 	// Controller
+  originCtrl := origins.NewController(originSvc)
 	truckCtrl := truck.NewController(truckSvc, validate)
 	truckTypeCtrl := truck_type.NewController(truckTypeSvc)
 	driverCtrl := driver.NewController(driverSvc)
+  
+  router.GET("/origins", originCtrl.HandlerGetOrigins)
 
 	transporters := router.Group("/transporters")
 	transporters.GET("/trucks", truckCtrl.HandlerGetTrucks)
