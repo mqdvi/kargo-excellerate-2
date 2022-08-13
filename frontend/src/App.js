@@ -17,6 +17,8 @@ import ReadDetailTransporterDrivers from './container/transporter/drivers/read-d
 import UpdateTransporterDrivers from './container/transporter/drivers/update';
 import CreateTransporterDrivers from './container/transporter/drivers/create';
 
+import ReadShipper from './container/shipper/read';
+
 function App() {
     return (
         <>
@@ -25,6 +27,8 @@ function App() {
                 <Routes>
                     <Route path="/" exact element={<Home />} />
                     <Route path="/login" element={<Login />} />
+
+                    <Route path="/Shipper/" element={<ReadShipper />} />
 
                     <Route path="/Transporter/trucks" element={<ReadTransporterTrucks />} />
                     <Route path="/Transporter/trucks/:id" element={<ReadDetailTransporterTrucks />} />
