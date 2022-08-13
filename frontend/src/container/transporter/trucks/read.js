@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { BiEdit } from 'react-icons/bi'
+import TrucksService from '../../../services/trucks-service';
 
 class ReadTransporterTrucks extends Component {
     state = {
@@ -12,14 +13,12 @@ class ReadTransporterTrucks extends Component {
         if (items !== "Transporter") {
             window.open("/", "_self");
         }
-        // else {
-        //     await ArtikelService.getArtikel()
-        //     .then((res) => {
-        //         this.setState({
-        //             trucks: res.data
-        //         });
-        //     });
-        // }
+        await TrucksService.getTrucks()
+        .then((res) => {
+            this.setState({
+                trucks: res.data
+            });
+        });
     }
 
     render() {        

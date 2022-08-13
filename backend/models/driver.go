@@ -35,6 +35,17 @@ type GetDriverFilter struct {
 	Sort   string
 }
 
+type RequestUpdateDriver struct {
+	Name          string `json:"name"`
+	PhoneNumber   string `json:"phoneNumber"`
+	IDCard        string `json:"idCard"`
+	DriverLicense string `json:"driverLicense"`
+}
+
+type ResponseUpdateDriver struct {
+	Data string `json:"data"`
+}
+
 func (m *GetDriverFilter) FromContext(c *gin.Context) *GetDriverFilter {
 	m.Search = c.Query("search")
 	m.Sort = c.Query("sort")
