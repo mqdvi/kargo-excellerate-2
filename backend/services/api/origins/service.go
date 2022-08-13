@@ -5,14 +5,11 @@ import (
 
 	"github.com/jmoiron/sqlx"
 
-	"github.com/mqdvi/kargo-excellerate-2/backend/helper"
 	"github.com/mqdvi/kargo-excellerate-2/backend/models"
 )
 
 type OriginServiceInterface interface {
-	GetOriginsByName(ctx context.Context) (*Data, error)
-	// GetOriginsPagination(ctx context.Context, filter *models.GetOriginsFilter, meta *helper.Meta) (*helper.PaginationResponse, error)
-	// Create(ctx context.Context, payload *models.CreateOriginPayload) (*models.Origin, error)
+	GetOrigins(ctx context.Context, filter *models.OriginFilter) (*[]models.Origin, error)
 }
 
 type originService struct {

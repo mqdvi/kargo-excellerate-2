@@ -10,8 +10,9 @@ import (
 
 type OriginRepositoryInterface interface {
 	GetTableName() string
-	GetOriginByID(ctx context.Context, db *sqlx.DB, id int64) (*models.Origin, error)
-	GetOriginByName(ctx context.Context, db *sqlx.DB, name string) (*models.Origin, error)
+	GetOrigins(ctx context.Context, db *sqlx.DB, filter *models.OriginFilter) ([]models.Origin, error)
+	// GetOriginByID(ctx context.Context, db *sqlx.DB, id int64) (*models.Origin, error)
+	// GetOriginByName(ctx context.Context, db *sqlx.DB, name string) (*models.Origin, error)
 	// Create(ctx context.Context, db *sqlx.DB, name string) (*models.Origin, error)
 }
 

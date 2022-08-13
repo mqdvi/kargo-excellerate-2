@@ -17,7 +17,9 @@ import (
 	"github.com/jmoiron/sqlx"
 
 	"github.com/mqdvi/kargo-excellerate-2/backend/databases"
-	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/truck"
+	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/origins"
+
+	// "github.com/mqdvi/kargo-excellerate-2/backend/services/api/truck"
 	"github.com/mqdvi/kargo-excellerate-2/backend/services/config"
 )
 
@@ -42,7 +44,7 @@ func NewApp(config *config.Config) *App {
 
 func (app *App) initDatabase() {
 	connectionString := fmt.Sprintf(
-		"%s:%s@tcp(%s:%v)/%s?parseTime=true",
+		"%s:%s@tcp(%s:%v)/%s?parseTime=true&usessl=false&allowPublicKeyRetrieval=true",
 		app.config.DBUser,
 		app.config.DBPassword,
 		app.config.DBHost,
@@ -76,16 +78,21 @@ func (app *App) initRoutes() {
 	router.Use(cors.New(config))
 
 	// Repository
-	truckRepo := truck.NewRepository(app.config.DBName)
+	originRepo := origins.NewRepository(app.config.DBName)
+	// truckRepo := truck.NewRepository(app.config.DBName)
 
 	// Service
-	truckSvc := truck.NewService(app.DBManager.DB, truckRepo)
+	originSvc := origins.NewService(app.DBManager.DB, originRepo)
+	// truckSvc := truck.NewService(app.DBManager.DB, truckRepo)
 
 	// Controller
-	truckCtrl := truck.NewController(truckSvc)
+	originCtrl := origins.NewController(originSvc)
+	// truckCtrl := truck.NewController(truckSvc)
 
-	router.GET("/trucks", truckCtrl.HandlerGetTrucks)
-	router.GET("/trucks/:id", truckCtrl.HandlerGetTruckByID)
+	router.GET("/origins", originCtrl.HandlerGetOrigins)
+	// router.GET("/origins/:id", originCtrl.HandlerGetTruckByID)
+	// router.GET("/trucks", truckCtrl.HandlerGetTrucks)
+	// router.GET("/trucks/:id", truckCtrl.HandlerGetTruckByID)
 }
 
 func (app *App) Start() {
