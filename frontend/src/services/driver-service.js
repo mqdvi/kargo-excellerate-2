@@ -11,16 +11,16 @@ class DriverService {
         return axios.post(base_URL, state);
     }
 
-    getArtikelById(artikelId) {
-        return axios.get(base_URL + artikelId);
+    getDriverById(driverId) {
+        return axios.get(base_URL + driverId);
     }
 
-    updateArtikel(state) {
+    updateDriver(state) {
         return axios.put(base_URL, state);
     }
 
-    deleteArtikel(artikelId) {
-        return axios.delete(base_URL + artikelId)
+    deleteDriver(driverId) {
+        return axios.delete(base_URL + driverId)
     }
 }
 
