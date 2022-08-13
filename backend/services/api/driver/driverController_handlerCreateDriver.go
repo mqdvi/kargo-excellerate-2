@@ -1,11 +1,12 @@
 package driver
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/mqdvi/kargo-excellerate-2/backend/helper"
 	"github.com/mqdvi/kargo-excellerate-2/backend/models"
 	"github.com/rs/zerolog/log"
-	"net/http"
 )
 
 func (ctrl *driverController) HandlerCreateDriver(c *gin.Context) {
@@ -15,11 +16,11 @@ func (ctrl *driverController) HandlerCreateDriver(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, errorResponse)
 		return
 	}
-	//if err := ctrl.validator.Struct(&payload); err != nil {
-	//	errorResponse := helper.NewErrorResponse("driver-400", err.Error())
-	//	c.JSON(http.StatusBadRequest, errorResponse)
-	//	return
-	//}
+	if err := ctrl.validator.Struct(&payload); err != nil {
+		errorResponse := helper.NewErrorResponse("driver-400", err.Error())
+		c.JSON(http.StatusBadRequest, errorResponse)
+		return
+	}
 
 	result, err := ctrl.driverSvc.Create(c, payload)
 	log.Debug().Interface("RES", result).Msg("test")
