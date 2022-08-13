@@ -26,6 +26,9 @@ class ReadTransporter extends Component {
             <>
                 <div className="background p-10">
                     <h1 className="h1 text-2xl py-5">TRANSPORTER PAGE</h1>
+                    <div className="create-button py-5">
+                        <Link className="bg-yellow-100 px-10 py-2" to='/Transporter/trucks/create'>CREATE TRUCKS</Link>
+                    </div>
                     <table className='table-auto'>
                         <thead>
                             <tr>
