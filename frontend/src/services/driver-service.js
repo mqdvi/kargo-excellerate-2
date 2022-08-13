@@ -3,7 +3,7 @@ import axios from 'axios';
 const base_URL = "http://localhost:8090/v1/transporters/drivers";
 
 class DriverService {
-    getArtikel(){
+    getDriver(){
         return axios.get(base_URL);
     }
 

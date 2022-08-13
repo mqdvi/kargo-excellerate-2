@@ -6,8 +6,8 @@ export class CreateTransporterDrivers extends Component {
         super(props)
 
         this.state = {
-            'name': '',
             'phoneNumber': '',
+            'driverName':'',
         }
     }
 
@@ -19,10 +19,10 @@ export class CreateTransporterDrivers extends Component {
         event.preventDefault()
         
         const formData = new FormData();
-        formData.append("name", this.state.name);
         formData.append("phoneNumber", this.state.phoneNumber);
+        formData.append("driverName", this.state.driverName);
             
-         await DriverService.createDriver(formData);
+        await DriverService.createDriver(formData);
         window.open("/Transporter/drivers", "_self")
     }
 
@@ -33,11 +33,11 @@ export class CreateTransporterDrivers extends Component {
 
                 <form class="rounded p-10" onSubmit={this.handlerSubmit}>
                     <div class="mb-6s">
-                        <label class="block text-sm font-header mb-2 uppercase" for="name">License Number</label>
-                        <input class="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="name" type="text" placeholder="name" onChange = {this.handlerChange} required/>
+                        <label class="block text-sm font-header mb-2 uppercase" for="driverName">Driver Name</label>
+                        <input class="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="driverName" type="text" placeholder="driverName" onChange = {this.handlerChange} required/>
                     </div>
                     <div class="mb-6">
-                        <label class="block text-sm font-header mb-2 uppercase" for="phoneNumber">phoneNumber</label>
+                        <label class="block text-sm font-header mb-2 uppercase" for="phoneNumber">Phone Number</label>
                         <input class="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="phoneNumber" type="number" placeholder="phoneNumber" onChange = {this.handlerChange} required/>
                     </div>
                     

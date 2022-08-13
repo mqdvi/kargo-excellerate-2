@@ -1,24 +1,25 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { BiEdit } from 'react-icons/bi'
+import DriverService from "../../../services/driver-service";
 
 
 class ReadTransporterDrivers extends Component {
     state = {
-        trucks: {}
+        drivers: {}
     }
 
-    // componentDidMount = async () =>{
-    //     await ArtikelService.getArtikel()
-    //     .then((res) => {
-    //         this.setState({
-    //             trucks: res.data
-    //         });
-    //     });
-    // }
+    componentDidMount = async () =>{
+        await DriverService.getDriver()
+        .then((res) => {
+            this.setState({
+                drivers: res.data
+            });
+        });
+    }
 
     render() {        
-        const { data } = this.state.trucks
+        const { data } = this.state.drivers
         const { items } = data || {}
         
         return (
@@ -26,7 +27,7 @@ class ReadTransporterDrivers extends Component {
                 <div className="background p-10">
                     <h1 className="h1 text-2xl py-5">DRIVERS PAGE</h1>
                     <div className="create-button py-5">
-                        <Link className="bg-yellow-100 px-10 py-2" to='/Transporter/trucks/create'>CREATE DRIVERS</Link>
+                        <Link className="bg-yellow-100 px-10 py-2" to='/Transporter/drivers/create'>CREATE DRIVERS</Link>
                     </div>
                     <table className='table-auto'>
                         <thead className='border'>
@@ -43,7 +44,7 @@ class ReadTransporterDrivers extends Component {
                             {(items || []).map((item, index) => (
                                 <tr>
                                     <td className='px-4'>
-                                        <Link className='px-2' to={"/Transporter/trucks/" + item.id}>{item.name}</Link>
+                                        <Link className='px-2' to={"/Transporter/drivers/" + item.id}>{item.name}</Link>
                                     </td>
                                     <td className='px-4'>{item.phoneNumber}</td>
                                     <td className='px-4'>{item.createdAt}</td>
