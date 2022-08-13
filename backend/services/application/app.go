@@ -14,10 +14,13 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 
 	"github.com/mqdvi/kargo-excellerate-2/backend/databases"
+	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/truck"
+	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/truck_type"
 	"github.com/mqdvi/kargo-excellerate-2/backend/services/config"
 )
 
@@ -26,6 +29,8 @@ type App struct {
 	E         *gin.Engine
 	DBManager *databases.Manager
 }
+
+var validate *validator.Validate
 
 func NewApp(config *config.Config) *App {
 	app := &App{
@@ -74,18 +79,36 @@ func (app *App) initRoutes() {
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{"*"}
 	router.Use(cors.New(config))
+
+	// Init validator
+	validate = validator.New()
+
 	// Repository
+	truckRepo := truck.NewRepository(app.config.DBName)
+	truckTypeRepo := truck_type.NewRepository(app.config.DBName)
 	driverRepo := driver.NewRepository(app.config.DBName)
 
 	// Service
+	truckSvc := truck.NewService(app.DBManager.DB, truckRepo)
+	truckTypeSvc := truck_type.NewService(app.DBManager.DB, truckTypeRepo)
 	driverSvc := driver.NewService(app.DBManager.DB, driverRepo)
 
 	// Controller
+	truckCtrl := truck.NewController(truckSvc, validate)
+	truckTypeCtrl := truck_type.NewController(truckTypeSvc)
 	driverCtrl := driver.NewController(driverSvc)
 
-	v1 := router.Group("/v1")
-	v1.GET("/transporters/drivers", driverCtrl.HandlerGetDrivers)
-	v1.POST("/transporters/drivers", driverCtrl.HandlerCreateDriver)
+	transporters := router.Group("/transporters")
+	transporters.GET("/trucks", truckCtrl.HandlerGetTrucks)
+	transporters.GET("/trucks/:id", truckCtrl.HandlerGetTruckByID)
+	transporters.POST("/trucks", truckCtrl.HandlerCreateTruck)
+	transporters.PUT("/trucks/:id", truckCtrl.HandlerUpdateTruck)
+	transporters.PATCH("/trucks/:id/deactivate", truckCtrl.HandlerDeactivateTruck)
+
+	transporters.GET("/truck-types", truckTypeCtrl.HandlerGetTruckTypes)
+
+	transporters.GET("/drivers", driverCtrl.HandlerGetDrivers)
+	transporters.POST("/drivers", driverCtrl.HandlerCreateDriver)
 }
 
 func (app *App) Start() {
