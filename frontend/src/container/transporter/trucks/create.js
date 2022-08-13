@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import DriverService from "../../../services/driver-service";
 
 export class CreateTransporterTrucks extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ export class CreateTransporterTrucks extends Component {
         formData.append("truckTypeId", this.state.truckTypeId);
         formData.append("productionYear", this.state.productionYear);
             
-        // await ArtikelService.createArtikel(formData);
+       // await DriverService.createArtikel(formData);
         window.open("/Transporter/trucks", "_self")
     }
 
