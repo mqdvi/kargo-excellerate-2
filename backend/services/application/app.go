@@ -84,8 +84,8 @@ func (app *App) initRoutes() {
 	driverCtrl := driver.NewController(driverSvc)
 
 	v1 := router.Group("/v1")
-	v1.GET("/transporters/drivers", driverCtrl.HandlerCreateArticle)
-	v1.POST("/transporters/drivers", driverCtrl.HandlerCreateArticle)
+	v1.GET("/transporters/drivers", driverCtrl.HandlerGetDrivers)
+	v1.POST("/transporters/drivers", driverCtrl.HandlerCreateDriver)
 }
 
 func (app *App) Start() {

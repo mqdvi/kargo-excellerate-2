@@ -3,13 +3,14 @@ package driver
 import (
 	"context"
 	"github.com/mqdvi/kargo-excellerate-2/backend/models"
+	"github.com/rs/zerolog/log"
 
 	"github.com/microcosm-cc/bluemonday"
 )
 
 func (svc *driverService) Create(ctx context.Context, payload *models.RequestCreateDriver) (*models.ResponseCreateDriver, error) {
-
-	svc.sanitizePayload(payload)
+	log.Debug().Interface("RES", payload).Msg("test")
+	//svc.sanitizePayload(payload)
 
 	result, err := svc.repo.CreateDriver(ctx, svc.db, payload)
 	if err != nil {

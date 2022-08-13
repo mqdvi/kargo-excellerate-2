@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func (ctrl *driverController) HandlerGetArticlesPagination(c *gin.Context) {
+func (ctrl *driverController) HandlerGetDrivers(c *gin.Context) {
 
 	filter := models.GetDriverFilter{}
 	filter.FromContext(c)

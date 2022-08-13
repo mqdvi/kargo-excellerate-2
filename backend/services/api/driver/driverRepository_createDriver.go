@@ -10,6 +10,7 @@ import (
 func (repo *driverRepository) CreateDriver(ctx context.Context, db *sqlx.DB, payload *models.RequestCreateDriver) (*models.ResponseCreateDriver, error) {
 	query, args, _ := sq.Insert(repo.GetTableName()).
 		SetMap(sq.Eq{
+			"id":             ,
 			"name":           payload.Name,
 			"phone_number":   payload.PhoneNumber,
 			"created_at":     sq.Expr("NOW()"),
