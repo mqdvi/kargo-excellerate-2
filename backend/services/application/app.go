@@ -17,6 +17,7 @@ import (
 	"github.com/jmoiron/sqlx"
 
 	"github.com/mqdvi/kargo-excellerate-2/backend/databases"
+	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/truck"
 	"github.com/mqdvi/kargo-excellerate-2/backend/services/config"
 )
 
@@ -73,6 +74,18 @@ func (app *App) initRoutes() {
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{"*"}
 	router.Use(cors.New(config))
+
+	// Repository
+	truckRepo := truck.NewRepository(app.config.DBName)
+
+	// Service
+	truckSvc := truck.NewService(app.DBManager.DB, truckRepo)
+
+	// Controller
+	truckCtrl := truck.NewController(truckSvc)
+
+	router.GET("/trucks", truckCtrl.HandlerGetTrucks)
+	router.GET("/trucks/:id", truckCtrl.HandlerGetTruckByID)
 }
 
 func (app *App) Start() {
