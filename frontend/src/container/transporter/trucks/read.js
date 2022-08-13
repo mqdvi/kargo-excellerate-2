@@ -2,20 +2,25 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { BiEdit } from 'react-icons/bi'
 
-
 class ReadTransporterTrucks extends Component {
     state = {
         trucks: {}
     }
 
-    // componentDidMount = async () =>{
-    //     await ArtikelService.getArtikel()
-    //     .then((res) => {
-    //         this.setState({
-    //             trucks: res.data
-    //         });
-    //     });
-    // }
+    componentDidMount = async () =>{
+        const items = localStorage.getItem('user')
+        if (items !== "Transporter") {
+            window.open("/", "_self");
+        }
+        // else {
+        //     await ArtikelService.getArtikel()
+        //     .then((res) => {
+        //         this.setState({
+        //             trucks: res.data
+        //         });
+        //     });
+        // }
+    }
 
     render() {        
         const { data } = this.state.trucks

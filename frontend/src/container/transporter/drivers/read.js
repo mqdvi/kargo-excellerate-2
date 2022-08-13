@@ -10,6 +10,11 @@ class ReadTransporterDrivers extends Component {
     }
 
     componentDidMount = async () =>{
+        const items = localStorage.getItem('user')
+        if (items !== "Transporter") {
+            window.open("/", "_self");
+        }
+ 
         await DriverService.getDriver()
         .then((res) => {
             this.setState({

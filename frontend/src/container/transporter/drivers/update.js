@@ -11,23 +11,27 @@ export class UpdateTransporterDrivers extends Component {
         }
     }
 
-    // componentDidMount = async () => {
-    //     this.isLogin();
-    //     // const id = this.props.match.params.id
-    //     const data = window.location.href.split('/')
-    //     const panjang = data.length
-    //     const id = data[panjang-1]
-    //     const res = await ArtikelService.getArtikelById('get-artikel.php?id=' + id)
+    componentDidMount = async () => {
+        const items = localStorage.getItem('user')
+        if (items !== "Transporter") {
+            window.open("/", "_self");
+        }
+        // this.isLogin();
+        // // const id = this.props.match.params.id
+        // const data = window.location.href.split('/')
+        // const panjang = data.length
+        // const id = data[panjang-1]
+        // const res = await ArtikelService.getArtikelById('get-artikel.php?id=' + id)
 
-    //     this.setState({
-    //         id: res.data.id,
-    //         judul: res.data.judul,
-    //         foto: res.data.foto,
-    //         isi: res.data.isi,
-    //         phoneNumber: res.data.phoneNumber,
-    //         licenceType: res.data.licenceType
-    //     })
-    // }
+        // this.setState({
+        //     id: res.data.id,
+        //     judul: res.data.judul,
+        //     foto: res.data.foto,
+        //     isi: res.data.isi,
+        //     phoneNumber: res.data.phoneNumber,
+        //     licenceType: res.data.licenceType
+        // })
+    }
 
     handlerChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })

@@ -10,17 +10,21 @@ export class ReadDetailTransporterDrivers extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     const data = window.location.href.split('/')
-    //     const panjang = data.length
-    //     const id = data[panjang-1]
-    //     ArtikelService.getArtikelById('get-artikel.php?id=' + id)
-    //     .then((res) => {
-    //         this.setState({
-    //             data: res.data
-    //         });
-    //     });
-    // }
+    componentDidMount() {
+        const items = localStorage.getItem('user')
+        if (items !== "Transporter") {
+            window.open("/", "_self");
+        }
+        // const data = window.location.href.split('/')
+        // const panjang = data.length
+        // const id = data[panjang-1]
+        // ArtikelService.getArtikelById('get-artikel.php?id=' + id)
+        // .then((res) => {
+        //     this.setState({
+        //         data: res.data
+        //     });
+        // });
+    }
 
     render() {
         const { id, name, phoneNumber, createdAt, status } = this.state.data
