@@ -2,6 +2,7 @@ package driver
 
 import (
 	"context"
+	"database/sql"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/jmoiron/sqlx"
 	"github.com/mqdvi/kargo-excellerate-2/backend/models"
@@ -10,7 +11,7 @@ import (
 func (repo *driverRepository) UpdateDriver(ctx context.Context, db *sqlx.DB, payload *models.RequestCreateDriver, driverID int64) (*models.ResponseCreateDriver, error) {
 	_, err := repo.GetDriverByID(ctx, db, driverID)
 	
-	if err != nil {
+	if err != nil  && err != sql.ErrNoRows {
 		response, err := repo.CreateDriver(ctx, db, payload)
 		return response, err
 	}
