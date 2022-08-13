@@ -23,3 +23,16 @@ func (svc *driverService) GetDriver(ctx context.Context, filter *models.GetDrive
 
 	return &resp, nil
 }
+
+func (svc *driverService) GetDriverByID(ctx context.Context, driverID int64) (*models.Driver, error) {
+
+	driver, err := svc.repo.GetDriverByID(ctx, svc.db, driverID)
+	if err != nil {
+		helper.Logger.Error().
+			Strs("tags", []string{"DriverRepository", "GetDriver"}).
+			Msg(err.Error())
+		return nil, err
+	}
+
+	return driver, nil
+}
