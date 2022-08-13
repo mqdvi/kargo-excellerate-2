@@ -1,0 +1,14 @@
+.env
+*.log
+start.sh
+.scannerwork/*
+.idea
+.vscode
+*.xlsx
+
+coverage.html
+cover.out
+report.json
+
+gin-bin
+main
