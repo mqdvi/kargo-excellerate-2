@@ -1,3 +1,5 @@
+Request Create Driver
+
 curl --location --request POST 'http://localhost:8090/v1/transporters/drivers' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -7,3 +9,36 @@ curl --location --request POST 'http://localhost:8090/v1/transporters/drivers' \
 	"driverLicense": "123456"
 }
 '
+
+Request Get Driver
+curl --location --request GET 'http://localhost:8090/v1/transporters/drivers' \
+--data-raw ''
+
+Response
+{
+    "data": {
+        "items": [
+            {
+                "id": 1,
+                "name": "Meli",
+                "phoneNumber": "089936335841",
+                "status": "1",
+                "createdAt": "2022-08-13T13:12:45Z"
+            },
+            {
+                "id": 2,
+                "name": "Meli2",
+                "phoneNumber": "089936335841",
+                "status": "1",
+                "createdAt": "2022-08-13T13:13:02Z"
+            },
+            {
+                "id": 3,
+                "name": "Meli5",
+                "phoneNumber": "089936335841",
+                "status": "1",
+                "createdAt": "2022-08-13T13:16:06Z"
+            }
+        ]
+    }
+}
