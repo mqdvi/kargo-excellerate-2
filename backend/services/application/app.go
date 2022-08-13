@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/mqdvi/kargo-excellerate-2/backend/services/api/driver"
 	"log"
 	"net/http"
 	"os"
@@ -73,6 +74,18 @@ func (app *App) initRoutes() {
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{"*"}
 	router.Use(cors.New(config))
+	// Repository
+	driverRepo := driver.NewRepository(app.config.DBName)
+
+	// Service
+	driverSvc := driver.NewService(app.DBManager.DB, driverRepo)
+
+	// Controller
+	driverCtrl := driver.NewController(driverSvc)
+
+	v1 := router.Group("/v1")
+	v1.GET("/transporters/drivers", driverCtrl.HandlerGetDrivers)
+	v1.POST("/transporters/drivers", driverCtrl.HandlerCreateDriver)
 }
 
 func (app *App) Start() {
