@@ -55,7 +55,7 @@ class ReadTransporterTrucks extends Component {
                                     <td className='px-4'>{item.productionYear}</td>
                                     <td className='px-4'>{item.status}</td>
                                     <td className="flex">
-                                        <Link className='px-2' to={"/Transporter/trucks/update" + item.id}><BiEdit /></Link>
+                                        <Link className='px-2' to={"/Transporter/trucks/update/" + item.id}><BiEdit /></Link>
                                     </td>
                                 </tr>
                             ))}
