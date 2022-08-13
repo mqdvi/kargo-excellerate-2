@@ -8,7 +8,7 @@ import (
 type Driver struct {
 	ID          int64     `db:"id" json:"id"`
 	Name        string    `db:"name" json:"name"`
-	PhoneNumber string    `db:"phone_name" json:"phoneNumber"`
+	PhoneNumber string    `db:"phone_number" json:"phoneNumber"`
 	Status      string    `db:"status" json:"status,omitempty"`
 	CreatedAt   time.Time `db:"created_at" json:"createdAt,omitempty"`
 }

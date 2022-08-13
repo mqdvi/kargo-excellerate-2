@@ -1,0 +1,9 @@
+curl --location --request POST 'http://localhost:8090/v1/transporters/drivers' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+	"name":"Meli5" ,
+	"phoneNumber": "089936335841",
+	"idCard": "123456",
+	"driverLicense": "123456"
+}
+'

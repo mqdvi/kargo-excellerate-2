@@ -9,8 +9,8 @@ import (
 )
 
 func (svc *driverService) Create(ctx context.Context, payload *models.RequestCreateDriver) (*models.ResponseCreateDriver, error) {
-	log.Debug().Interface("RES", payload).Msg("test")
-	//svc.sanitizePayload(payload)
+	log.Debug().Interface("Req", payload).Msg("Start to run driver service create driver ")
+	svc.sanitizePayload(payload)
 
 	result, err := svc.repo.CreateDriver(ctx, svc.db, payload)
 	if err != nil {

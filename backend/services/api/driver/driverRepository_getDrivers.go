@@ -16,7 +16,7 @@ func (repo *driverRepository) GetDriver(ctx context.Context, db *sqlx.DB, payloa
 	err := db.SelectContext(ctx, &result, query, args...)
 	if err != nil {
 		helper.Logger.Error().
-			Strs("tags", []string{"ArticleRepository", "GetArticlesPagination"}).
+			Strs("tags", []string{"DriverRepository", "GetDriver"}).
 			Str("query", query).
 			Msg(err.Error())
 		return result, err
