@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const base_URL = "http://localhost:8090/v1/transporters/drivers";
+const base_URL = "http://localhost:8090/transporters/drivers";
 
 class DriverService {
     getDriver(){
