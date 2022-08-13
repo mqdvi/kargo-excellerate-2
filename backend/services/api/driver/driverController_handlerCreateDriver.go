@@ -29,7 +29,7 @@ func (ctrl *driverController) HandlerCreateDriver(c *gin.Context) {
 		return
 	}
 
-	response := helper.JsonResponse{
+	response := helper.DataResponse{
 		Data: result,
 	}
 

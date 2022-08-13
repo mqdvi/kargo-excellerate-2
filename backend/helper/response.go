@@ -1,7 +1,15 @@
 package helper
 
-type JsonResponse struct {
+type DataResponse struct {
 	Data interface{} `json:"data"`
+}
+
+type ItemsReponse struct {
+	Data Data `json:"data"`
+}
+
+type Data struct {
+	Items interface{} `json:"items,omitempty"`
 }
 
 type ErrorResponse struct {
@@ -13,8 +21,8 @@ type errorPayload struct {
 	ErrorMessage string `json:"message"`
 }
 
-func NewJsonResponse(data interface{}) JsonResponse {
-	return JsonResponse{Data: data}
+func NewJsonResponse(data interface{}) DataResponse {
+	return DataResponse{Data: data}
 }
 
 func NewErrorResponse(errorCode string, errorMessage string) ErrorResponse {
