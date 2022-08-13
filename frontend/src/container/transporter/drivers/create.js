@@ -11,6 +11,13 @@ export class CreateTransporterDrivers extends Component {
         }
     }
 
+    componentDidMount() {
+        const items = localStorage.getItem('user')
+        if (items !== "Transporter") {
+            window.open("/", "_self");
+        }
+    }
+
     handlerChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }

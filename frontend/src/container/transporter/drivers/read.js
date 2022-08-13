@@ -8,14 +8,18 @@ class ReadTransporterDrivers extends Component {
         trucks: {}
     }
 
-    // componentDidMount = async () =>{
-    //     await ArtikelService.getArtikel()
-    //     .then((res) => {
-    //         this.setState({
-    //             trucks: res.data
-    //         });
-    //     });
-    // }
+    componentDidMount = async () =>{
+        const items = localStorage.getItem('user')
+        if (items !== "Transporter") {
+            window.open("/", "_self");
+        }
+        // await ArtikelService.getArtikel()
+        // .then((res) => {
+        //     this.setState({
+        //         trucks: res.data
+        //     });
+        // });
+    }
 
     render() {        
         const { data } = this.state.trucks

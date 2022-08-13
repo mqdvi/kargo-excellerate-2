@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
     constructor() {
@@ -18,13 +19,27 @@ class Login extends Component {
 
     formSubmit(event) {
         event.preventDefault();
-        window.open("/"+ (this.state.user).toString() + "/trucks", "_self")
+        const items = localStorage.getItem('user')
+        
+        if (items !== this.state.user) {
+            localStorage.setItem('user', this.state.user);
+        }
+
+        if ((this.state.user).toString() === "Transporter") {
+            window.open("/"+ (this.state.user).toString() + "/trucks", "_self")
+        }
+        else if ((this.state.user).toString() === "Shipper") {
+            window.open("/"+ (this.state.user).toString() + "/", "_self")
+        }
     }
+
+    
 
     render() {
         return (
             <div className="background p-10">
                 <h1 className="h1 text-2xl py-5">LOGIN PAGE</h1>
+                
                 <form onSubmit={this.formSubmit}>
                     <div className="radio">
                         <label>
@@ -33,6 +48,7 @@ class Login extends Component {
                             value="Transporter"
                             checked={this.state.user === "Transporter"}
                             onChange={this.onValueChange}
+                            required
                             />
                             Transporter
                         </label>
