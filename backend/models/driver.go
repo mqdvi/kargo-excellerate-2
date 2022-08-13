@@ -10,7 +10,7 @@ type Driver struct {
 	Name        string    `db:"name" json:"name"`
 	PhoneNumber string    `db:"phone_number" json:"phoneNumber"`
 	Status      string    `db:"status" json:"status,omitempty"`
-	CreatedAt   time.Time `db:"created_at" json:"createdAt,omitempty"`
+	CreatedAt   time.Time `db:"created_at" json:"createdAt,omitempty" time_format:"01 January 2006"`
 }
 type ResponseGetDrivers struct {
 	Data DriverPayloadData `json:"data"`

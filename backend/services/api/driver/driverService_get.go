@@ -15,9 +15,18 @@ func (svc *driverService) GetDriver(ctx context.Context, filter *models.GetDrive
 			Msg(err.Error())
 		return nil, err
 	}
+	maskingDriver := make([]models.Driver, 0)
+	for _, driver := range drivers {
+		if driver.Status == "1" {
+			driver.Status = "Active"
+		} else {
+			driver.Status = "Inactive"
+		}
+		maskingDriver = append(maskingDriver, driver)
+	}
 	resp := models.ResponseGetDrivers{
 		Data: models.DriverPayloadData{
-			Items: drivers,
+			Items: maskingDriver,
 		},
 	}
 
