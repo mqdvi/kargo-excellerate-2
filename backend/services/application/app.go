@@ -85,18 +85,21 @@ func (app *App) initRoutes() {
 	validate = validator.New()
 
 	// Repository
+	// originRepo := origins.NewRepository(app.config.DBName)
 	truckRepo := truck.NewRepository(app.config.DBName)
 	truckTypeRepo := truck_type.NewRepository(app.config.DBName)
 	driverRepo := driver.NewRepository(app.config.DBName)
 	shipmentRepo := shipment.NewRepository(app.config.DBName)
 
 	// Service
+	// originSvc := origins.NewService(app.DBManager.DB, originRepo)
 	truckSvc := truck.NewService(app.DBManager.DB, truckRepo)
 	truckTypeSvc := truck_type.NewService(app.DBManager.DB, truckTypeRepo)
 	driverSvc := driver.NewService(app.DBManager.DB, driverRepo)
 	shipmentSvc := shipment.NewService(app.DBManager.DB, shipmentRepo, truckRepo, driverRepo)
 
 	// Controller
+	// originCtrl := origins.NewController(originSvc)
 	truckCtrl := truck.NewController(truckSvc, validate)
 	truckTypeCtrl := truck_type.NewController(truckTypeSvc)
 	driverCtrl := driver.NewController(driverSvc, validate)
@@ -115,6 +118,7 @@ func (app *App) initRoutes() {
 	transporters.GET("/truck-types", truckTypeCtrl.HandlerGetTruckTypes)
 
 	transporters.GET("/drivers", driverCtrl.HandlerGetDrivers)
+	transporters.GET("/drivers/:id", driverCtrl.HandlerGetDriverByID)
 	transporters.POST("/drivers", driverCtrl.HandlerCreateDriver)
 
 	shipper := router.Group("/shipper")

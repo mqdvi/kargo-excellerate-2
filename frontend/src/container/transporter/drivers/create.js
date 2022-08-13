@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import DriverService from "../../../services/driver-service";
-
 export class CreateTransporterDrivers extends Component {
     constructor(props) {
         super(props)
@@ -26,6 +25,7 @@ export class CreateTransporterDrivers extends Component {
 
     onFileChange = (e) => {
 	    this.setState({ idCard: e.target.files[0] });
+        this.setState({ driverLicense: e.target.files[0] });
 	};
 
     handlerSubmit = async (event) => {
