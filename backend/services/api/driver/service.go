@@ -8,6 +8,7 @@ import (
 
 type DriverServiceInterface interface {
 	GetDriver(ctx context.Context, payload *models.GetDriverFilter) (*models.ResponseGetDrivers, error)
+	GetDriverByID(ctx context.Context, driverID int64) (*models.Driver, error)
 	Create(ctx context.Context, payload *models.RequestCreateDriver) (*models.ResponseCreateDriver, error)
 }
 

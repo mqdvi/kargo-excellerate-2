@@ -9,6 +9,8 @@ import (
 type DriverRepositoryInterface interface {
 	CreateDriver(ctx context.Context, db *sqlx.DB, payload *models.RequestCreateDriver) (*models.ResponseCreateDriver, error)
 	GetDriver(ctx context.Context, db *sqlx.DB, payload *models.GetDriverFilter) ([]models.Driver, error)
+	GetDriverByID(ctx context.Context, db *sqlx.DB, driverID int64) (*models.Driver, error)
+	// UpdateDriver(ctx context.Context, db *sqlx.DB, payload *models.GetDriverFilter) ([]models.Driver, error)
 }
 type driverRepository struct {
 	dbName string
