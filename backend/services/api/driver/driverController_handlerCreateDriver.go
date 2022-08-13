@@ -16,11 +16,11 @@ func (ctrl *driverController) HandlerCreateDriver(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, errorResponse)
 		return
 	}
-	if err := ctrl.validator.Struct(&payload); err != nil {
-		errorResponse := helper.NewErrorResponse("driver-400", err.Error())
-		c.JSON(http.StatusBadRequest, errorResponse)
-		return
-	}
+	//if err := ctrl.validator.Struct(&payload); err != nil {
+	//	errorResponse := helper.NewErrorResponse("driver-400", err.Error())
+	//	c.JSON(http.StatusBadRequest, errorResponse)
+	//	return
+	//}
 
 	result, err := ctrl.driverSvc.Create(c, payload)
 	log.Debug().Interface("RES", result).Msg("test")
