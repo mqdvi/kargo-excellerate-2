@@ -42,14 +42,14 @@ export class CreateTransporterTrucks extends Component {
         formData.append("truckTypeId", this.state.truckTypeId);
         formData.append("productionYear", this.state.productionYear);
             
-    //    await DriverService.createArtikel(formData);
+        await TrucksService.createTrucks(formData);
         window.open("/Transporter/trucks", "_self")
     }
 
     render() {
         return (
             <div className="background p-10">
-                <h1 className="header-background text-xl">ARTIKEL ADMIN PAGE</h1>
+                <h1 className="header-background text-xl">CREATE TRUCKS</h1>
 
                 <form class="rounded p-10" onSubmit={this.handlerSubmit}>
                     <div class="mb-6s">
@@ -67,7 +67,7 @@ export class CreateTransporterTrucks extends Component {
                         <label class="block text-sm font-header mb-2 uppercase" for="truckTypeId">truckType</label>
                         <select class="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="truckTypeId" placeholder="truckTypeId" onChange = {this.handlerChange} required>
                             <option name="tronton">Tronton</option>
-                            <option name="tronton">Tronton</option>
+                            <option name="broton">Broton</option>
                         </select>
                     </div>
                     <div class="mb-6">
