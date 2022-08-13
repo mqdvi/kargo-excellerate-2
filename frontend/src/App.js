@@ -1,25 +1,30 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import './App.css';
+import Example from './container/index';
+import Navbar from './components/navbar/index';
+
+import Login from './container/login/index';
+import ReadTransporter from './container/transporter/read';
+import ReadDetailTransporter from './container/transporter/read-detail';
+import UpdateTransporter from './container/transporter/update';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <>
+            <Navbar />
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" exact element={<Example />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/Transporter/trucks" element={<ReadTransporter />} />
+                    <Route path="/Transporter/trucks/:id" element={<ReadDetailTransporter />} />
+                    <Route path="/Transporter/trucks/:id" element={<UpdateTransporter />} />
+                </Routes>
+            </BrowserRouter>
+        </>
+    );
 }
 
 export default App;
