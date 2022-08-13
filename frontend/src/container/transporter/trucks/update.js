@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import TrucksService from "../../../services/trucks-service";
 
 export class UpdateTransporterTrucks extends Component {
     constructor(props) {
@@ -11,6 +12,10 @@ export class UpdateTransporterTrucks extends Component {
             'productionYear': '',
             'licenceType': ''
         }
+        //
+        // this.state = {
+        //     trucks:[]
+        // }
     }
 
     componentDidMount = async () => {
@@ -33,6 +38,13 @@ export class UpdateTransporterTrucks extends Component {
         //     productionYear: res.data.productionYear,
         //     licenceType: res.data.licenceType
         // })
+
+        await TrucksService.getTrucksById("/")
+            .then((res) => {
+                this.setState({
+                    trucks: res.data
+                });
+            });
     }
 
     handlerChange = (e) => {
