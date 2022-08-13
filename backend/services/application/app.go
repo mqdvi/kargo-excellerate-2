@@ -117,6 +117,7 @@ func (app *App) initRoutes() {
 	transporters.GET("/drivers/:id", driverCtrl.HandlerGetDriverByID)
 	transporters.POST("/drivers", driverCtrl.HandlerCreateDriver)
 	transporters.PUT("/drivers/:driverId", driverCtrl.HandlerUpdateDriver)
+	transporters.PATCH("/drivers/:id:/deactivate", driverCtrl.HandlerDeactivateDriver)
 }
 
 func (app *App) Start() {

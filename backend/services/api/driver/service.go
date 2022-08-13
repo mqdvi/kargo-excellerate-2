@@ -11,6 +11,7 @@ type DriverServiceInterface interface {
 	GetDriverByID(ctx context.Context, driverID int64) (*models.Driver, error)
 	Create(ctx context.Context, payload *models.RequestCreateDriver) (*models.ResponseCreateDriver, error)
 	Update(ctx context.Context, payload *models.RequestCreateDriver, driverID int64) (*models.ResponseCreateDriver, error)
+	Deactivate(ctx context.Context, driverID int64) (*models.Driver, error)
 }
 
 type driverService struct {
