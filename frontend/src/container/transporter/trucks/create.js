@@ -42,14 +42,14 @@ export class CreateTransporterTrucks extends Component {
         formData.append("truckTypeId", this.state.truckTypeId);
         formData.append("productionYear", this.state.productionYear);
             
-    //    await DriverService.createArtikel(formData);
+        await TrucksService.createTrucks(formData);
         window.open("/Transporter/trucks", "_self")
     }
 
     render() {
         return (
             <div className="background p-10">
-                <h1 className="header-background text-xl">ARTIKEL ADMIN PAGE</h1>
+                <h1 className="header-background text-xl">CREATE TRUCKS</h1>
 
                 <form class="rounded p-10" onSubmit={this.handlerSubmit}>
                     <div class="mb-6s">
